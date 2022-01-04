@@ -7,8 +7,8 @@ class Tabelas {
 
     criarAtendimentos() {
         const sql = 'CREATE TABLE IF NOT EXISTS\
-         Atendimentos (\
-            id int NOT NULL AUTO_INCREMENT PRIMARY KEY\
+         tbl_Atendimentos (\
+            _id int NOT NULL AUTO_INCREMENT PRIMARY KEY\
             , cliente VARCHAR(11) NOT NULL\
             , pet VARCHAR(20) NULL\
             , servico VARCHAR(20) NOT NULL\
@@ -28,8 +28,8 @@ class Tabelas {
 
     criarPets() {
         const sql = 'CREATE TABLE IF NOT EXISTS\
-         Pets (\
-            id int NOT NULL AUTO_INCREMENT PRIMARY KEY\
+         tbl_Pets (\
+            _id int NOT NULL AUTO_INCREMENT PRIMARY KEY\
             , nome varchar(50) NOT NULL\
             , imagem varchar(200) NULL)'
 

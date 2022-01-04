@@ -3,7 +3,7 @@ const uploadDeArquivo = require('../arquivos/uploadFiles')
 
 class Pet {
     adiciona(pet, res) {
-        const sql = 'INSERT INTO Pets SET ?'
+        const sql = 'INSERT INTO tbl_Pets SET ? ;'
 
         uploadDeArquivo(pet.imagem, pet.nome, (erro, novoCaminho) => {
             if(erro) {

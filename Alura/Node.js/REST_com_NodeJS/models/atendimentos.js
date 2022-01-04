@@ -31,7 +31,7 @@ class Atendimento {
             res.status(400).json(erros)
         } else {
             const atendimentoDatado = {...atendimento, dataCriacao}
-            const sql = 'INSERT INTO Atendimentos SET ?'
+            const sql = 'INSERT INTO tbl_Atendimentos SET ? ;'
     
             conexao.query(sql, atendimentoDatado, (erro, resultados) => {
                 if (erro) {
@@ -44,7 +44,15 @@ class Atendimento {
     }
 
     lista(res) {
-        const sql = 'SELECT * FROM Atendimentos'
+        const sql = 'SELECT _id\
+        , cliente\
+        , pet\
+        , servico\
+        , data\
+        , dataCriacao\
+        , status\
+        , observacoes\
+         FROM tbl_Atendimentos ;'
 
         conexao.query(sql, (erro, resultados) => {
             if(erro) {
@@ -56,7 +64,16 @@ class Atendimento {
     }
 
     buscaPorId(id, res) {
-        const sql = `SELECT * FROM Atendimentos WHERE id = ${id}`
+        const sql = `SELECT _id\
+        , cliente\
+        , pet\
+        , servico\
+        , data\
+        , dataCriacao\
+        , status\
+        , observacoes\
+        FROM tbl_Atendimentos\
+        WHERE _id = ${id} ;`
 
         conexao.query(sql, async (erro, resultados) => {
             const atendimento = resultados[0]
@@ -80,7 +97,7 @@ class Atendimento {
                 .format('yyyy-MM-DD HH:mm:ss')
         }
         
-        const sql = `UDPATE Atendimentos SET ? WHERE id = ${id}`
+        const sql = `UPDATE tbl_Atendimentos SET ? WHERE _id = ${id} ;`
 
         conexao.query(sql, [valores, id], (erro, resultados) => {
             if(erro) {
@@ -92,7 +109,7 @@ class Atendimento {
     }
 
     deleta(id, res) {
-        const sql = `DELETE FROM Atendimentos WHERE id = ${id}`
+        const sql = `DELETE FROM tbl_Atendimentos WHERE _id = ${id} ;`
 
         conexao.query(sql, id, (erro, resultados) => {
             if(erro) {
