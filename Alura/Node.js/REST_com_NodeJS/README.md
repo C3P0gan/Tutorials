@@ -9,3 +9,4 @@
 ### POST | [🔗 Node.JS: Descomplicando o trabalho com diferentes versões](https://www.alura.com.br/artigos/descomplicando-o-trabalho-com-node)
 ### ALURA+ | [🔗 Debugando projetos NodeJS no VSCode](https://cursos.alura.com.br/extra/alura-mais/debugando-projetos-nodejs-no-vscode-c23)
 ### CURSO | [🔗 NodeJS: Streaming de dados e Repositório](https://cursos.alura.com.br/course/node-rest-api)
+### POST | [🔗 Utilizando export.modules no Node.js](https://www.alura.com.br/artigos/utilizando-export-modules-no-node-js)
