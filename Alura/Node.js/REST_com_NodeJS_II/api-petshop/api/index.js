@@ -11,6 +11,13 @@ const SerializadorErro = require('./Serializador').SerializadorErro
 
 app.use(bodyParser.json())
 
+// Middleware para alterar a assinatura da API
+app.use((requisicao, resposta, proximo) => {
+    resposta.set('X-Powered-By', 'Gatito Petshop')
+    proximo()
+})
+
+// Middleware para formatos de requisição
 app.use((requisicao, resposta, proximo) => {
     let formatoRequisitado = requisicao.header('Accept')
 
@@ -28,9 +35,16 @@ app.use((requisicao, resposta, proximo) => {
     proximo()
 })
 
+// CORS - Não funcionou :(
+app.use((requisicao, resposta, proximo) => {
+    resposta.set('Access-Control-Allow-Origin', '*')
+    proximo()
+})
+
 const roteador = require('./rotas/fornecedores')
 app.use('/api/fornecedores', roteador)
 
+// Middleware para erros de requisição
 app.use((erro, requisicao, resposta, proximo) => {
     let status = 500
 

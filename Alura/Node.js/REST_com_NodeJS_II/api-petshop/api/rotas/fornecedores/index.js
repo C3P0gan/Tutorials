@@ -3,7 +3,15 @@ const TabelaFornecedor = require('./TabelaFornecedor')
 const Fornecedor = require('./Fornecedor')
 const SerializadorFornecedor = require('../../Serializador').SerializadorFornecedor
 
+// OPTIONS
+roteador.options('/', (requisicao, resposta) => {
+    resposta.set('Access-Control-Allow-Methods', 'GET', 'POST')
+    resposta.set('Access-Control-Allow-Headers', 'Content-Type')
+    resposta.status(204) // No Content
+    resposta.end()
+})
 
+// Listar fornecedores
 roteador.get('/', async (requisicao, resposta) => {
     const resultados = await TabelaFornecedor.listar()
     resposta.status(200) // OK
@@ -15,6 +23,7 @@ roteador.get('/', async (requisicao, resposta) => {
     )
 })
 
+// Cadastrar fornecedores
 roteador.post('/', async (requisicao, resposta, proximo) => {
     try{
         const dadosRecebidos = requisicao.body
@@ -32,6 +41,15 @@ roteador.post('/', async (requisicao, resposta, proximo) => {
     }
 })
 
+// OPTIONS
+roteador.options('/:idFornecedor', (requisicao, resposta) => {
+    resposta.set('Access-Control-Allow-Methods', 'GET', 'PUT', 'DELETE')
+    resposta.set('Access-Control-Allow-Headers', 'Content-Type')
+    resposta.status(204) // No Content
+    resposta.end()
+})
+
+// Buscar fornecedor por id
 roteador.get('/:idFornecedor', async (requisicao, resposta, proximo) => {
     try{
         const id = requisicao.params.idFornecedor
@@ -50,7 +68,7 @@ roteador.get('/:idFornecedor', async (requisicao, resposta, proximo) => {
     }
 })
 
-    
+// Atualizar fornecedor
 roteador.put('/:idFornecedor', async (requisicao, resposta, proximo) => {
     try{
         const id = requisicao.params.idFornecedor
@@ -65,6 +83,7 @@ roteador.put('/:idFornecedor', async (requisicao, resposta, proximo) => {
     }
 })
 
+// Remover fornecedor
 roteador.delete('/:idFornecedor', async (requisicao, resposta, proximo) => {
     try{
         const id = requisicao.params.idFornecedor
@@ -77,5 +96,21 @@ roteador.delete('/:idFornecedor', async (requisicao, resposta, proximo) => {
         proximo(erro)
     }
 })
+
+const roteadorProdutos = require('./produtos')
+
+const verificarFornecedor = async (requisicao, resposta, proximo) => {
+    try {
+        const id = requisicao.params.idFornecedor
+        const fornecedor = new Fornecedor({ id: id })
+        await fornecedor.carregar()
+        requisicao.fornecedor = fornecedor
+        proximo()
+    } catch (erro) {
+        proximo(erro)
+    }
+}
+
+roteador.use('/:idFornecedor/produtos', verificarFornecedor, roteadorProdutos)
 
 module.exports = roteador
