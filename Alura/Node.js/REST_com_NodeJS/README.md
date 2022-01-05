@@ -1,5 +1,3 @@
-# nodejs-api-rest
-
 # ALURA | [🔗 Formação Node.js com Express](https://cursos.alura.com.br/formacao-node-js-12)
 
 ## 1. Aplicação web com Node.js
