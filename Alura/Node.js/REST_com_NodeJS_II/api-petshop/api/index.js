@@ -35,14 +35,21 @@ app.use((requisicao, resposta, proximo) => {
     proximo()
 })
 
-// CORS - Não funcionou :(
+// CORS
 app.use((requisicao, resposta, proximo) => {
     resposta.set('Access-Control-Allow-Origin', '*')
+    resposta.set(
+        'Content-Security-Policy'
+        , "default-src 'self' http://localhost:3000/api/fornecedores/*"
+    )
     proximo()
 })
 
 const roteador = require('./rotas/fornecedores')
 app.use('/api/fornecedores', roteador)
+
+const roteadorV2 = require('./rotas/fornecedores/rotas.v2')
+app.use('/api/v2/fornecedores', roteadorV2)
 
 // Middleware para erros de requisição
 app.use((erro, requisicao, resposta, proximo) => {
