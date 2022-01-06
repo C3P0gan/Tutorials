@@ -1,20 +1,13 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const routes = require('./routes')
 
 
-// Main application
+// instance express
 const app = express()
-
-app.use(bodyParser.json())
-
 const port = 3000
 
-app.get('/teste', (req, res) => res
-    .status(200) // Ok
-    .send({
-        mensagem: 'Boas-vindas à API'
-    })
-)
+// import routes
+routes(app)
 
 app.listen(port, () => console.log(
     `O servidor está rodando na porta ${port}`
