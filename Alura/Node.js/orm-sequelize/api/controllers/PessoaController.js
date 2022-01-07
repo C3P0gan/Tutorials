@@ -19,9 +19,23 @@ class PessoaController {
     }
 
     // Read all
+    static async retornaPessoasAtivas(req, res) {
+        try {
+            const pessoasAtivas = await database.Pessoas.findAll()
+            return res
+                .status(200) // OK
+                .json(pessoasAtivas)
+        } catch (error) {
+            return res
+                .status(500) // Internal Server Error
+                .json(error.message)
+        }
+    }
+
+    // Read all
     static async retornaTodasAsPessoas(req, res) {
         try {
-            const todasAsPessoas = await database.Pessoas.findAll()
+            const todasAsPessoas = await database.Pessoas.scope('todos').findAll()
             return res
                 .status(200) // OK
                 .json(todasAsPessoas)
@@ -57,15 +71,11 @@ class PessoaController {
         const novasInfos = req.body
         try {
             await database.Pessoas.update(novasInfos, {
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             const pessoaAtualizada = await database.Pessoas.findOne({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -83,9 +93,7 @@ class PessoaController {
         const { id } = req.params
         try {
             await database.Pessoas.destroy({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -103,9 +111,7 @@ class PessoaController {
         const { id } = req.params
         try {
             await database.Pessoas.restore({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             
             return res
@@ -169,9 +175,7 @@ class PessoaController {
             })
 
             const matriculaAtualizada = await database.Matriculas.findOne({
-                where: {
-                    id: Number(matriculaId),
-                }
+                where: { id: Number(matriculaId) }
             })
 
             return res
@@ -210,9 +214,7 @@ class PessoaController {
         const { id } = req.params
         try {
             await database.Matriculas.restore({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             
             return res

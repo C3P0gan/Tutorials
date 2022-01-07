@@ -38,9 +38,7 @@ class NivelController {
         const { id } = req.params
         try {
             const umNivel = await database.Niveis.findOne({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             return res
                 .status(200) // OK
@@ -59,15 +57,11 @@ class NivelController {
         const novasInfos = req.body
         try {
             await database.Niveis.update(novasInfos, {
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             const nivelAtualizado = await database.Niveis.findOne({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -85,9 +79,7 @@ class NivelController {
         const { id } = req.params
         try {
             await database.Niveis.destroy({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -105,9 +97,7 @@ class NivelController {
         const { id } = req.params
         try {
             await database.Niveis.restore({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             
             return res

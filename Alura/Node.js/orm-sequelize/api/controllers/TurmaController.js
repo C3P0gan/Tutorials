@@ -38,9 +38,7 @@ class TurmaController {
         const { id } = req.params
         try {
             const umaTurma = await database.Turmas.findOne({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             return res
                 .status(200) // OK
@@ -59,15 +57,11 @@ class TurmaController {
         const novasInfos = req.body
         try {
             await database.Turmas.update(novasInfos, {
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             const turmaAtualizada = await database.Turmas.findOne({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -85,9 +79,7 @@ class TurmaController {
         const { id } = req.params
         try {
             await database.Turmas.destroy({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
 
             return res
@@ -105,9 +97,7 @@ class TurmaController {
         const { id } = req.params
         try {
             await database.Turmas.restore({
-                where: {
-                    id: Number(id)
-                }
+                where: { id: Number(id) }
             })
             
             return res

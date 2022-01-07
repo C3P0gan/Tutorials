@@ -7,7 +7,8 @@ const router = Router()
 router
     // CRUD Pessoas
     .post('/pessoas', PessoaController.criaPessoa) // Create
-    .get('/pessoas', PessoaController.retornaTodasAsPessoas) // Read all
+    .get('/pessoas', PessoaController.retornaPessoasAtivas) // Read active
+    .get('/pessoas/todos', PessoaController.retornaTodasAsPessoas) // Read all
     .get('/pessoas/:id', PessoaController.retornaUmaPessoa) // Read one
     .put('/pessoas/:id', PessoaController.atualizaPessoa) // Update
     .delete('/pessoas/:id', PessoaController.apagaPessoa) // Delete
