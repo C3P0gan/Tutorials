@@ -13,6 +13,7 @@ router
     .put('/pessoas/:id', PessoaController.atualizaPessoa) // Update
     .delete('/pessoas/:id', PessoaController.apagaPessoa) // Delete
     .post('/pessoas/:id/restaura', PessoaController.restauraPessoa) // Restore
+    .post('/pessoas/:estudanteId/cancela', PessoaController.cancelaPessoa) // Cancel
 
     // CRUD Matricula
     .post('/pessoas/:estudanteId/matricula', PessoaController.criaMatricula) // Create

@@ -3,7 +3,7 @@ const { literal } = require('sequelize')
 
 
 class PessoaController {
-    // CRUD Pessoa
+    // Pessoa
     // Create
     static async criaPessoa(req, res) {
         const novaPessoa = req.body
@@ -21,7 +21,7 @@ class PessoaController {
         }
     }
 
-    // Read all
+    // Read active
     static async retornaPessoasAtivas(req, res) {
         try {
             const pessoasAtivas = await database.Pessoas.findAll()
@@ -96,7 +96,7 @@ class PessoaController {
         }
     }
 
-    // Delete
+    // (Soft)Delete
     static async apagaPessoa(req, res) {
         const { id } = req.params
 
@@ -118,41 +118,70 @@ class PessoaController {
     // Restore
     static async restauraPessoa(req, res) {
         const { id } = req.params
-
+        
         try {
             await database.Pessoas.restore({
                 where: { id: Number(id) }
             })
             
             return res
-                .status(204) // No Content
-                .end()
+            .status(204) // No Content
+            .end()
+        } catch (error) {
+            return res
+            .status(500) // Internal Server Error
+            .json(error.message)
+        }
+    }
+
+    // Cancel
+    static async cancelaPessoa(req, res) {
+        const { estudanteId } = req.params
+        
+        try {
+            database.sequelize.transaction(async t => {
+                await database.Pessoas.update(
+                    { ativo: false },
+                    { where: { id: Number(estudanteId)} },
+                    { transaction: t }
+                )
+    
+                await database.Matriculas.update(
+                    { status: 'cancelado' },
+                    { where: { estudante_id: Number(estudanteId) } },
+                    { transaction: t }
+                )
+    
+                return res
+                    .status(204) // No Content
+                    .end()
+            })
         } catch (error) {
             return res
                 .status(500) // Internal Server Error
                 .json(error.message)
         }
     }
-
-    // CRUD Matrícula
+    
+    // Matrícula
     // Create
     static async criaMatricula(req, res) {
         const { estudanteId } = req.params
         const novaMatricula = { ...req.body, estudante_id: Number(estudanteId) }
-
+        
         try {
             const novaMatriculaCriada = await database.Matriculas.create(novaMatricula)
-
+            
             return res
-                .status(201) // Created
-                .json(novaMatriculaCriada)
+            .status(201) // Created
+            .json(novaMatriculaCriada)
         } catch (error) {
             return res
-                .status(500) // Internal Server Error
-                .json(error.message)
+            .status(500) // Internal Server Error
+            .json(error.message)
         }
     }
-
+    
     // Read one
     static async retornaUmaMatricula(req, res) {
         const { estudanteId, matriculaId } = req.params
@@ -174,7 +203,6 @@ class PessoaController {
                 .json(error.message)
         }
     }
-
 
     // Update
     static async atualizaMatricula(req, res) {
@@ -312,6 +340,7 @@ class PessoaController {
                 .json(error.message)
         }
     }
+
 }
 
 module.exports = PessoaController
