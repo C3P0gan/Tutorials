@@ -1,4 +1,7 @@
-const database = require('../models')
+// const database = require('../models')
+
+const Services = require('../services/Services')
+const niveisServices = new Services('Niveis')
 
 
 class NivelController {
@@ -23,7 +26,7 @@ class NivelController {
     // Read all
     static async retornaTodosOsNiveis(req, res) {
         try {
-            const todosOsNiveis = await database.Niveis.findAll()
+            const todosOsNiveis = await niveisServices.retornaTodosOsRegistros()
 
             return res
                 .status(200) // OK

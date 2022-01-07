@@ -1,5 +1,8 @@
-const database = require('../models')
-const { literal } = require('sequelize')
+// const database = require('../models')
+// const { literal } = require('sequelize')
+
+const { PessoasServices } = require('../services')
+const pessoasServices = new PessoasServices()
 
 
 class PessoaController {
@@ -24,7 +27,7 @@ class PessoaController {
     // Read active
     static async retornaPessoasAtivas(req, res) {
         try {
-            const pessoasAtivas = await database.Pessoas.findAll()
+            const pessoasAtivas = await pessoasServices.retornaRegistrosAtivos()
 
             return res
                 .status(200) // OK
@@ -39,7 +42,7 @@ class PessoaController {
     // Read all
     static async retornaTodasAsPessoas(req, res) {
         try {
-            const todasAsPessoas = await database.Pessoas.scope('todos').findAll()
+            const todasAsPessoas = await pessoasServices.retornaTodosOsRegistros()
 
             return res
                 .status(200) // OK
@@ -96,7 +99,7 @@ class PessoaController {
         }
     }
 
-    // (Soft)Delete
+    // Delete
     static async apagaPessoa(req, res) {
         const { id } = req.params
 
@@ -139,23 +142,11 @@ class PessoaController {
         const { estudanteId } = req.params
         
         try {
-            database.sequelize.transaction(async t => {
-                await database.Pessoas.update(
-                    { ativo: false },
-                    { where: { id: Number(estudanteId)} },
-                    { transaction: t }
-                )
+            await pessoasServices.cancelaPessoaEMatriculas(Number(estudanteId))
     
-                await database.Matriculas.update(
-                    { status: 'cancelado' },
-                    { where: { estudante_id: Number(estudanteId) } },
-                    { transaction: t }
-                )
-    
-                return res
-                    .status(204) // No Content
-                    .end()
-            })
+            return res
+                .status(204) // No Content
+                .end()
         } catch (error) {
             return res
                 .status(500) // Internal Server Error
