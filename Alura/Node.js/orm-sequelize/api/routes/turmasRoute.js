@@ -11,5 +11,6 @@ router
     .get('/turmas/:id', TurmaController.retornaUmaTurma) // Read one
     .put('/turmas/:id', TurmaController.atualizaTurma) // Update
     .delete('/turmas/:id', TurmaController.apagaTurma) // Delete
+    .post('/turmas/:id/restaura', TurmaController.restauraTurma) // Restore
 
 module.exports = router

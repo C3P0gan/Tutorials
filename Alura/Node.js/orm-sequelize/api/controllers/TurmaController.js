@@ -2,6 +2,22 @@ const database = require('../models')
 
 
 class TurmaController {
+    // CRUD Turma
+    // Create
+    static async criaTurma(req, res) {
+        const novaTurma = req.body
+        try {
+            const novaTurmaCriada = await database.Turmas.create(novaTurma)
+            return res
+                .status(201) // Created
+                .json(novaTurmaCriada)
+        } catch (error) {
+            return res
+                .status(500) // Internal Server Error
+                .json(error.message)
+        }
+    }
+
     // Read all
     static async retornaTodasAsTurmas(req, res) {
         try {
@@ -36,20 +52,6 @@ class TurmaController {
         }
     }
 
-    // Create
-    static async criaTurma(req, res) {
-        const novaTurma = req.body
-        try {
-            const novaTurmaCriada = await database.Turmas.create(novaTurma)
-            return res
-                .status(201) // Created
-                .json(novaTurmaCriada)
-        } catch (error) {
-            return res
-                .status(500) // Internal Server Error
-                .json(error.message)
-        }
-    }
 
     // Update
     static async atualizaTurma(req, res) {
@@ -88,6 +90,26 @@ class TurmaController {
                 }
             })
 
+            return res
+                .status(204) // No Content
+                .end()
+        } catch (error) {
+            return res
+                .status(500) // Internal Server Error
+                .json(error.message)
+        }
+    }
+
+    // Restore
+    static async restauraTurma(req, res) {
+        const { id } = req.params
+        try {
+            await database.Turmas.restore({
+                where: {
+                    id: Number(id)
+                }
+            })
+            
             return res
                 .status(204) // No Content
                 .end()

@@ -11,5 +11,6 @@ router
     .get('/niveis/:id', NivelController.retornaUmNivel) // Read one
     .put('/niveis/:id', NivelController.atualizaNivel) // Update
     .delete('/niveis/:id', NivelController.apagaNivel) // Delete
+    .post('/niveis/:id/restaura', NivelController.restauraNivel) // Restore
 
 module.exports = router
