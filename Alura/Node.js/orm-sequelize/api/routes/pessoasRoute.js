@@ -17,6 +17,9 @@ router
     // CRUD Matricula
     .post('/pessoas/:estudanteId/matricula', PessoaController.criaMatricula) // Create
     .get('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.retornaUmaMatricula) // Read one
+    .get('/pessoas/:estudanteId/matricula', PessoaController.retornaMatriculas) // Read confirmed
+    .get('/pessoas/matricula/:turmaId/confirmadas', PessoaController.retornaMatriculasPorTurma) // Read by id
+    .get('/pessoas/matricula/lotada', PessoaController.retornaTurmasLotadas) // Read full
     .put('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.atualizaMatricula) // Update
     .delete('/pessoas/:estudanteId/matricula/:matriculaId', PessoaController.apagaMatricula) // Delete
     .post('/pessoas/:estudanteId/matricula/:matriculaId/restaura', PessoaController.restauraMatricula) // Restore

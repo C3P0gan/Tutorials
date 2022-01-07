@@ -6,8 +6,10 @@ class NivelController {
     // Create
     static async criaNivel(req, res) {
         const novoNivel = req.body
+
         try {
             const novoNivelCriado = await database.Niveis.create(novoNivel)
+
             return res
                 .status(201) // Created
                 .json(novoNivelCriado)
@@ -36,10 +38,12 @@ class NivelController {
     // Read one
     static async retornaUmNivel(req, res) {
         const { id } = req.params
+
         try {
             const umNivel = await database.Niveis.findOne({
                 where: { id: Number(id) }
             })
+
             return res
                 .status(200) // OK
                 .json(umNivel)
@@ -55,6 +59,7 @@ class NivelController {
     static async atualizaNivel(req, res) {
         const { id } = req.params
         const novasInfos = req.body
+
         try {
             await database.Niveis.update(novasInfos, {
                 where: { id: Number(id) }
@@ -77,6 +82,7 @@ class NivelController {
     // Delete
     static async apagaNivel(req, res) {
         const { id } = req.params
+
         try {
             await database.Niveis.destroy({
                 where: { id: Number(id) }
@@ -95,6 +101,7 @@ class NivelController {
     // Restore
     static async restauraNivel(req, res) {
         const { id } = req.params
+        
         try {
             await database.Niveis.restore({
                 where: { id: Number(id) }
