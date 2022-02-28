@@ -1,32 +1,26 @@
 <template>
-  <div>
-    <h1>{{ titulo }}</h1>
+  <div class="corpo">
+    
+    <nav>
+        <ul>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/cadastro">Cadastro</router-link></li>
+        </ul>
+    </nav>
 
-    <ul>
-      <li v-for="foto of fotos" :key="foto.titulo">
-        <img :src="foto.url" :alt="foto.titulo">
-      </li>
-    </ul>
-
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      titulo: "Alurapic",
-      fotos: []
-    }
-  },
-  created() {
-    this.$http.get('http://localhost:3000/v1/fotos')
-      .then(res => res.json())
-      .then(fotos => this.fotos = fotos)
-      .catch(err => console.error(err));
-  }
 }
 </script>
 
 <style>
+    .corpo {
+        font-family: Helvetica, Sans-Serif;
+        width: 96%;
+        margin: auto;
+    }
 </style>
