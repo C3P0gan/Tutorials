@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <h1 class="centralizado">{{ titulo }}</h1>
 
@@ -22,23 +23,24 @@
                     :url="foto.url"
                     :titulo="foto.titulo"
                 />
-
-                <meu-botao
-                    tipo="button"
-                    rotulo="REMOVER" 
-                    @botaoAtivado="remove(foto)"
-                    :confirmacao=true
-                    estilo="perigo"
-                />
+                
+            <meu-botao
+                tipo="button"
+                rotulo="REMOVER" 
+                @botaoAtivado="remove(foto)"
+                :confirmacao=true
+                estilo="perigo"
+            />
             </meu-painel>
 
         </li>
     </ul>
 
   </div>
-</template>
 
+</template>
 <script>
+
 import Painel from '../shared/painel/Painel.vue';
 import ImagemResponsiva from '../shared/imagem-responsiva/ImagemResponsiva.vue';
 import Botao from '../shared/botao/Botao.vue';
@@ -98,9 +100,10 @@ export default {
    }
 
 }
-</script>
 
+</script>
 <style>
+
     .centralizado {
         text-align: center;
     }
@@ -121,4 +124,5 @@ export default {
         display: block;
         width: 100%;
     }
+
 </style>
