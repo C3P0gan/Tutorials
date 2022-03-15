@@ -1,4 +1,6 @@
 // imports and initialize the app variable
+const moment = require('moment');
+
 const app = require('express')();
 
 const server = require('http').createServer(app);
@@ -17,6 +19,35 @@ io.on('connection', (socket) => {
         console.log('What is payload: ', payload);
         io.emit('chat', payload)
     });
+
+    // Handler for 'received' event
+    socket.on('received', (options) => {
+        console.log(options);
+
+        let _options = {
+            messageID: options.messageID,
+            timetoken: moment().valueOf(),
+            userID: options.userName
+        };
+
+        // Emit 'delivered' event
+        socket.emit('delivered', _options);
+    });
+
+    //Handler for 'markSeen' event
+    socket.on('markSeen', (options) => {
+        console.log(options);
+
+        let _options = {
+            messageID: options.messageID,
+            timetoken: moment().valueOf(),
+            userID: options.userName
+        };
+
+        // Emit 'markedSeen' event
+        socket.emit('markedSeen', _options);
+    });
+
 });
 
 // Express server
