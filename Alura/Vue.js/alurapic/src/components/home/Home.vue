@@ -97,11 +97,11 @@ export default {
                     let indice = this.fotos.indexOf(foto);
                     this.fotos.splice(indice, 1);
                     this.mensagem = "Foto removida com sucesso"
-                }, err => {
+                })
+                .catch(err => {
                     console.log(err);
-                    this.mensagem = "Não foi possível remover a foto";
+                    this.mensagem = err.message;
                 });
-
         }
     },
 
@@ -112,7 +112,10 @@ export default {
         this.service
             .lista()
             .then(fotos => this.fotos = fotos)
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                this.mensagem = err.message;
+            });
 
    }
 
