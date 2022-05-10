@@ -6,5 +6,5 @@ export default class Foto {
         this.url = url;
         this.descricao = descricao;
 
-    }
-}
+    };
+};

@@ -12,19 +12,26 @@
       <div class="controle">
         <label for="titulo">TÍTULO</label>
         <input
+            v-validate data-vv-rules="required|min:3|max:30"
             id="titulo"
+            data-vv-as="title"
+            name="titulo"
             autocomplete="off"
-            v-model.lazy="foto.titulo"
+            v-model="foto.titulo"
         >
+        <span class="erro" v-show="errors.has('titulo')">{{ errors.first('titulo') }}</span>
       </div>
 
       <div class="controle">
         <label for="url">URL</label>
         <input
+            v-validate data-vv-rules="required"
             id="url"
+            name="url"
             autocomplete="off"
-            v-model.lazy="foto.url"
+            v-model="foto.url"
         >
+        <span class="erro" v-show="errors.has('url')">{{ errors.first('url') }}</span>
         <imagem-responsiva
             v-show="foto.url" 
             :url="foto.url"
@@ -80,14 +87,21 @@ export default {
 
     grava() {
         
-        this.service
-          .cadastra(this.foto)
-          .then(() => {
-            if(this.id) this.$router.push({ name: 'home' });
-            this.foto = new Foto();
-          })
-          .catch(err => console.log(err));
+      this.$validator
+        .validateAll()
+        .then(success => {
 
+          if(success) {
+
+            this.service
+              .cadastra(this.foto)
+              .then(() => {
+                if(this.id) this.$router.push({ name: 'home' });
+                this.foto = new Foto();
+              })
+              .catch(err => console.log(err));
+          }
+        });
     }
   },
 
@@ -128,6 +142,10 @@ export default {
 
   .centralizado {
     text-align: center;
+  }
+
+  .erro {
+    color: red
   }
 
 </style>

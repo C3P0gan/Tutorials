@@ -12,7 +12,7 @@ export default class FotoService {
             .then(res => res.json())
             .catch(err => {
                 console.log(err);
-                throw new Error('Não foi posível obter as fotos. Tente novamente mais tarde.');
+                throw new Error('Não foi possível obter as fotos. Tente novamente mais tarde.');
             })
     };
 
