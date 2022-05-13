@@ -14,7 +14,7 @@
         <input
             v-validate data-vv-rules="required|min:3|max:30"
             id="titulo"
-            data-vv-as="title"
+            data-vv-as="título"
             name="titulo"
             autocomplete="off"
             v-model="foto.titulo"
