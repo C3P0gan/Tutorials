@@ -28,15 +28,8 @@ export default {
     },
     methods: {
         efetuarLogin () {
-            this.$http.post('auth/login', this.usuario)
-                .then(res => {
-                    console.log(res)
-                    // localStorage.setItem('token', res.data.access_token)
-                    this.$store.state.token = res.data.access_token
-                    this.$store.state.usuario = res.data.user
-                    this.$router.push({ name: 'gerentes' })
-                })
-                .catch(err => console.log(err));
+            this.$store.dispatch('efetuarLogin', this.usuario)
+                .then(() => this.$router.push({ name: 'gerentes' }));
         }
     }
 };
