@@ -9,7 +9,9 @@
 import BarraNavegacao from '@/components/BarraNavegacao.vue'
 
 export default {
+
   components: {
+
     BarraNavegacao
   }
 };

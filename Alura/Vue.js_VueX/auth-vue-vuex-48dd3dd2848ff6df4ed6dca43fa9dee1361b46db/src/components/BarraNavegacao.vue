@@ -16,12 +16,17 @@ import BarraNavegacaoLogado from './BarraNavegacaoLogado.vue';
 import BarraNavegacaoDeslogado from './BarraNavegacaoDeslogado.vue';
 
 export default {
+
     components: {
+
         BarraNavegacaoLogado,
         BarraNavegacaoDeslogado
     },
+
     computed: {
+
       usuarioestaLogado () {
+
         return Boolean(this.$store.state.token);
       }
     }

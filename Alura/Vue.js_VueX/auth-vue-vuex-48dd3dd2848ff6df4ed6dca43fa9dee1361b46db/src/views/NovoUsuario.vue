@@ -23,7 +23,9 @@
 export default {
 
     data: function () {
+
         return {
+
             usuario: {
                 nome: '',
                 senha: '',
@@ -31,8 +33,11 @@ export default {
             }
         };
     },
+
     methods: {
+
         enviarFormulario () {
+
             this.$http.post('auth/register', this.usuario)
                 .then(res => {
                     console.log(res)

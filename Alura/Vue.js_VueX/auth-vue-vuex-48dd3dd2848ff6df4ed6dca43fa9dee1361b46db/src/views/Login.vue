@@ -22,12 +22,17 @@
 export default {
 
     data () {
+
         return {
+
             usuario: {}
         }
     },
+
     methods: {
+
         efetuarLogin () {
+
             this.$store.dispatch('efetuarLogin', this.usuario)
                 .then(() => this.$router.push({ name: 'gerentes' }));
         }
