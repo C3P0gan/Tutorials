@@ -158,6 +158,8 @@ td, th {
 	font-size: 2em;
 	margin: 0 0 1em;
 	clear: left;
+	/* color: rgba(0,0,0,0.3) */
+	/* text-shadow: 2px 2px #FF0000; */
 }
 
 /* .titulo-principal:before {
@@ -211,6 +213,7 @@ td, th {
 .beneficios {
 	padding: 3em 0;
 	background: #888888;
+	/* box-shadow: inset 0 0 30px #FF0000; */
 }
 
 .conteudo-beneficios {
@@ -238,6 +241,13 @@ td, th {
 
 .imagem-beneficios {
 	width: 60%;
+	opacity: 1;
+	transition: 400ms;
+	box-shadow: 10px 10px 10px 0 #000000; /* X Y blur border-intensity color */
+}
+
+.imagem-beneficios:hover {
+	opacity: 0.3;
 }
 
 .video {
@@ -245,18 +255,18 @@ td, th {
 	margin: 2em auto;
 }
 
-main > p {
-	/* Acessa todos os filhos diretos de main. */
+/* main > p {
+	Acessa todos os filhos diretos de main.
 }
 
 img + p {
-	/* Acessa o primeiro irmão de img */
+	Acessa o primeiro irmão de img
 }
 
 img ~ p {
-	/* Acessa todos os irmãos de img */
+	Acessa todos os irmãos de img
 }
 
 main p:not(#missao) {
-	/* Acessa todos os elementos <p> exceto aonde o id="missao" */
-}
+	Acessa todos os elementos <p> exceto aonde o id="missao"
+} */
