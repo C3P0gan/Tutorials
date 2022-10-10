@@ -7,13 +7,20 @@
     display: inline-block;
 }
 
+.container__botao:checked~.container__rotulo>.cabeçalho__menu-hamburguer {
+    background-image: url(../img/Menu\ Aberto.svg);
+}
+
+.container__botao:checked~.container__rotulo {
+    background: var(--azul-degrade);
+}
+
 .cabeçalho {
     background-color: var(--branco);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 1em;
 }
 
 .container {
@@ -91,7 +98,7 @@
     }
 
     .opções__item {
-        padding: 1em;
+        padding: 2em 1em;
         text-transform: uppercase;
     }
 
@@ -103,6 +110,20 @@
     .opções__botão:checked~.lista-menu {
         display: block;
         width: auto;
+    }
+
+    .opções__botão:checked~.opções__rotulo>.opções__item {
+        background: var(--azul-degrade);
+        color: var(--branco);
+    }
+
+    .lista-menu__item:hover {
+        background: var(--azul-degrade);
+    }
+
+    .lista-menu__item:hover>.lista-menu__link {
+        -webkit-text-fill-color: var(--branco);
+        text-decoration: none;
     }
 }
 
