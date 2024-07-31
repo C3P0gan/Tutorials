@@ -1,7 +1,7 @@
 FROM node:20
 WORKDIR /app
-COPY package* .
+COPY package* ./
 RUN npm install
-COPY . .
+COPY . ./
 RUN npm run build
 CMD ["node", "dist/main.js"]
